@@ -1,0 +1,7 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>La Permission est refusée</h1>
+    <span>Cette page n'est pas disponible pour role <a href="{{ path('main_home') }}">aller à la page d'acceuil</a>.</span>
+{% endblock %}

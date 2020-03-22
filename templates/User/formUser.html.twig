@@ -1,0 +1,95 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <main class="app-content">
+        <div class="app-title">
+            <div>
+                <h1><i class="fa fa-users"></i>&nbsp;Ajout d'un employé</h1>
+            </div>
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#"><i class="fa fa-home fa-lg"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#">Employés</a>
+                </li>
+                <li class="breadcrumb-item">Ajout d'un employé</li>
+            </ul>
+        </div>
+        <div class="tile">
+        {{ form_start(createFormular,{'attr': {'class': 'form-horizontal'} }) }}
+                <section>
+                    <h3>Informations générales</h3>
+                    <div class="row mt-4">
+                        <div class="offset-md-4 col-md-8">
+                            <div class="form-group row">
+                                {{ form_label(createFormular.firstName, null,{'label_attr': {'class': 'control-label col-md-3'} }) }}
+                                <div class="col-md-9">
+                                    {{ form_errors(createFormular.firstName, {'attr': {'class': 'form-control-feedback text-danger'} }) }}
+                                    {{ form_widget(createFormular.firstName, {'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form_label(createFormular.lastName, null,{'label_attr': {'class': 'control-label col-md-3'} }) }}
+                                <div class="col-md-9">
+                                    {{ form_errors(createFormular.lastName, {'attr': {'class': 'form-control-feedback text-danger'} }) }}
+                                    {{ form_widget(createFormular.lastName, {'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form_label(createFormular.email, null,{'label_attr': {'class': 'control-label col-md-3'} }) }}
+                                <div class="col-md-9">
+                                    {{ form_errors(createFormular.email, {'attr': {'class': 'form-control-feedback text-danger'} }) }}
+                                    {{ form_widget(createFormular.email, {'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form_label(createFormular.password, null,{'label_attr': {'class': 'control-label col-md-3'} }) }}
+                                <div class="col-md-9">
+                                    {{ form_errors(createFormular.password, {'attr': {'class': 'form-control-feedback text-danger'} }) }}
+                                    {{ form_widget(createFormular.password, {'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <hr/>
+                <section>
+                    <h3>Production</h3>
+                    <div class="row mt-4">
+                        <div class="offset-md-4 col-md-8">
+                            <div class="form-group row">
+                                {{ form_label(createFormular.profession, null,{'label_attr': {'class': 'control-label col-md-3'} }) }}
+                                <div class="col-md-9">
+                                    {{ form_widget(createFormular.profession, {'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form_label(createFormular.cost, null,{'label_attr': {'class': 'control-label col-md-3'} }) }}
+                                <div class="col-md-9">
+                                    {{ form_errors(createFormular.cost, {'attr': {'class': 'form-control-feedback text-danger'} }) }}
+                                    {{ form_widget(createFormular.cost, {'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form_label(createFormular.date, null,{'label_attr': {'class': 'control-label col-md-3'} }) }}
+                                <div class="col-md-9">
+                                    {{ form_errors(createFormular.date, {'attr': {'class': 'form-control-feedback text-danger'} }) }}
+                                    {{ form_widget(createFormular.date, {'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <hr/>
+                <div class="row">
+                    <div class="offset-md-6 col-md-6">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>Enregistrer</button>
+                    </div>
+                </div>
+            {{ form_end(createFormular) }}
+        </div>
+    </main>
+
+{% endblock %}

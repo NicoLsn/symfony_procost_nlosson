@@ -1,0 +1,72 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <main class="app-content">
+        <div class="app-title">
+            <div>
+                <h1><i class="fa fa-users"></i>&nbsp;Employés</h1>
+            </div>
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('main_home') }}"><i class="fa fa-home fa-lg"></i></a>
+                </li>
+                <li class="breadcrumb-item">Employés</li>
+            </ul>
+        </div>
+        <div class="tile pb-5">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('user_insert') }}" class="btn btn-primary float-right mb-4"><i
+                            class="fa fa-plus-circle mr-2"></i>Ajouter un employé</a>
+            {% endif %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Métier</th>
+                        <th>Coût horaire</th>
+                        <th>Date d'embauche</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in listUser %}
+
+                        <tr>
+                            <td>{{ user.firstName }} {{ user.lastName  | capitalize }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.profession.name }}</td>
+                            <td>{{ user.cost| format_currency('EUR') }}</td>
+                            <td>{{ user.date |date('d/m/Y') }}</td>
+                            <td>
+                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                    {% if app.user.id ==  user.id or is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('user_info', { 'id':user.id}) }}"
+                                           class="btn btn-primary btn-sm">
+                                            <i class="fa fa-eye mr-0"></i>
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                    {% if app.user.id ==  user.id %}
+                                        <a href="{{ path('user_edit', { 'id':user.id}) }}"
+                                           class="btn btn-info btn-sm">
+                                            <i class="fa fa-pencil mr-0"></i>
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            <hr/>
+            <nav class="float-right">
+                {{ knp_pagination_render(listUser) }}
+            </nav>
+        </div>
+    </main>
+{% endblock %}

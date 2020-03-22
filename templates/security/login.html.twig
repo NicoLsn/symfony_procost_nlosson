@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+    <section class="material-half-bg">
+        <div class="cover"></div>
+    </section>
+    <section class="login-content">
+        <div class="logo">
+            <h1>Procost</h1>
+        </div>
+        <div class="login-box">
+            <form class="login-form" method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+                <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>Connexion</h3>
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+                    <input class="form-control" type="text" name="email" placeholder="Email" autofocus>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Mot de passe</label>
+                    <input class="form-control" type="password" name="password" placeholder="Mot de passe">
+                </div>
+
+                <div class="form-group">
+                    <div class="utility">
+                        <div class="animated-checkbox">
+                            <label>
+                                <input type="checkbox"><span class="label-text">Se souvenir de moi</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+                <div class="form-group btn-container">
+                    <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>CONNEXION
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+{% endblock %}

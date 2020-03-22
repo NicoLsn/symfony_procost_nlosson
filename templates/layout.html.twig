@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <header class="app-header"><a class="app-header__logo" href="{{ path('main_home') }}">Procost</a>
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+        <!-- Navbar Right Menu-->
+        <ul class="app-nav">
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li class="app-search">
+                    <a href="{{ path('security_logout') }}" class="btn btn-info">Se déconnecter</a>
+                </li>
+            {% else %}
+                <li class="app-search">
+                    <a href="{{ path('security_login') }}" class="btn btn-info">Se connecter</a>
+                </li>
+            {% endif %}
+        </ul>
+    </header>
+    <!-- Sidebar menu-->
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
+        <div class="app-sidebar__user">
+            <img class="app-sidebar__user-avatar" src="{{ asset('img/user.jpg') }}" alt="User Image">
+            <div>
+                {% if app.user != null %}
+                    <p class="app-sidebar__user-name">{{ app.user.firstName }} {{ app.user.lastName }}</p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <p class="app-sidebar__user-designation">Manager</p>
+                    {% else %}
+                        <p class="app-sidebar__user-designation">Employé</p>
+                    {% endif %}
+                {% else %}
+                    <p class="app-sidebar__user-name">Anonyme</p>
+                {% endif %}
+
+            </div>
+        </div>
+        <ul class="app-menu">
+            <li>
+                {% if app.request.get('_route') == 'main_home'%}
+                    <a class="app-menu__item active" href="{{ path('main_home') }}">
+                        <i class="app-menu__icon fa fa-dashboard"></i>
+                        <span class="app-menu__label">Tableau de bord</span>
+                    </a>
+                {% else %}
+                    <a class="app-menu__item" href="{{ path('main_home') }}">
+                        <i class="app-menu__icon fa fa-dashboard"></i>
+                        <span class="app-menu__label">Tableau de bord</span>
+                    </a>
+                {% endif %}
+            </li>
+            <li>
+                {% if app.request.get('_route') == 'project_home' or app.request.get('_route') == 'project_detail' or app.request.get('_route') == 'project_add' or app.request.get('_route') == 'project_update'%}
+                    <a class="app-menu__item active" href="{{ path('project_home') }}">
+                        <i class="app-menu__icon fa fa-laptop"></i>
+                        <span class="app-menu__label">Projets</span>
+                    </a>
+                {% else %}
+                    <a class="app-menu__item" href="{{ path('project_home') }}">
+                        <i class="app-menu__icon fa fa-laptop"></i>
+                        <span class="app-menu__label">Projets</span>
+                    </a>
+                {% endif %}
+            </li>
+            <li>
+                {% if app.request.get('_route') == 'user_home' or app.request.get('_route') == 'user_detail' or app.request.get('_route') == 'user_add' or app.request.get('_route') == 'user_update'%}
+                    <a class="app-menu__item active" href="{{ path('user_home') }}">
+                        <i class="app-menu__icon fa fa-users"></i>
+                        <span class="app-menu__label">Employés</span>
+                    </a>
+                {% else %}
+                    <a class="app-menu__item" href="{{ path('user_home') }}">
+                        <i class="app-menu__icon fa fa-users"></i>
+                        <span class="app-menu__label">Employés</span>
+                    </a>
+                {% endif %}
+            </li>
+            <li>
+                {% if app.request.get('_route') == 'profession_home' or app.request.get('_route') == 'profession_detail' or app.request.get('_route') == 'profession_insert' or app.request.get('_route') == 'profession_edit'%}
+                    <a class="app-menu__item active" href="{{ path('profession_home') }}">
+                        <i class="app-menu__icon fa fa-book"></i>
+                        <span class="app-menu__label">Métiers</span>
+                    </a>
+                {% else %}
+                    <a class="app-menu__item" href="{{ path('profession_home') }}">
+                        <i class="app-menu__icon fa fa-book"></i>
+                        <span class="app-menu__label">Métiers</span>
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+    </aside>
+    {% block content %}{% endblock %}
+    <footer class="main-footer">
+        &copy; 2019 - PROCOST
+    </footer>
+{% endblock %}
